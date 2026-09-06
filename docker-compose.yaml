@@ -11,6 +11,9 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     volumes:
       - ./config_postgres:/var/lib/postgresql/data
 
@@ -37,8 +40,12 @@ services:
     ports:
       - "3000:3000"
       - "2222:2222"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1    
     depends_on:
-      - db
+          - db
+
   syncthing:
     image: syncthing/syncthing:latest
     container_name: syncthing
@@ -51,6 +58,9 @@ services:
       - ./config_syncthing:/config
       - /mnt/private_media:/mnt/private_media
       - /mnt/documents:/mnt/documents
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     ports:
        - 8384:8384 # Web UI
        - 22000:22000/tcp # TCP file transfers
